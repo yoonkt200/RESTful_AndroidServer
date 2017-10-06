@@ -20,8 +20,8 @@ def member_list(request):
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        print (data)
-        serializer = MemberSerializer(Member.objects.all(), many=True)
+        print (data['name'])
+        serializer = MemberSerializer(Member.objects.filter(name=data['name']), many=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
