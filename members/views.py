@@ -22,7 +22,4 @@ def member_list(request):
         data = JSONParser().parse(request)
         print (data['name'])
         serializer = MemberSerializer(Member.objects.filter(name=data['name']), many=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data)
